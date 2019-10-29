@@ -1,5 +1,5 @@
 {
-  "name": "demo",
+  "name": "events",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0-alpha",
