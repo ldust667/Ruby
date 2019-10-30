@@ -2,15 +2,9 @@ require "csv"
 
 
 def clean_zip(zipcode)
-	if zipcode.nil?
-		zipcode= "00000"
-        elsif zipcode.length < 5
-                zipcode = zipcode.rjust 5, "0"
-        elsif zipcode.length > 5
-                zipcode = zipcode[0..4]
-	else
-		zipcode
-        end
+	#combined logic to convert value to string add zeros to the front up to the length of 5 and cut off vallues past 5 characters
+	zipcode.to_s.rjust(5,"0")[0..4]	
+
 end
 
 
