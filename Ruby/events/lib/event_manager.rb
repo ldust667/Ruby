@@ -1,4 +1,7 @@
 puts "Events Manager Intialized!"
 
-content= File.read "event_attendees.csv"
-puts content
+content= File.readlines "event_attendees.csv"
+
+content.each do |record|
+	puts record
+end
