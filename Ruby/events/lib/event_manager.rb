@@ -4,6 +4,7 @@ content= File.readlines "event_attendees.csv"
 
 content.each do |record|
 	columns = record.split(",")
-#using P instead of puts to show the values as the arrays they actually are
-	p columns
+	first_name= columns[2]
+#delimiting csv file to attain first name of each record
+	puts first_name
 end
