@@ -32,11 +32,22 @@ content.each do |row|
 				address: zipcode,
 				levels: 'country',
 				roles: ['legislatorUpperBody', 'legislatorLowerBody' ])
-		legislators= legislators.officials 
+		#calling method to access list
+		legislators = legislators.officials 
+
+		#store legislature names from list 
+		legislator_name= legislators.map(&:name)
+		
+		#converting to string and comma seperating
+		legislators_str = legislator_name.join(", ")
+ 
+		print "#{name} #{zipcode} Your elected Officials: "
+		puts "#{legislators_str}"
+
+
 	rescue
-		"You can find your representatives by visiting www.commoncause.org/take-action/find-elected-officials"
+		puts "#{name}, you can find your representatives by visiting www.commoncause.org/take-action/find-elected-officials. There appears to be an issue with the zipcode provided: #{zipcode}"
 	end
 
 
-	puts "#{name} #{zipcode} #{legislators}"
 end
