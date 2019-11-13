@@ -48,6 +48,7 @@ end
 
 puts "Events Manager Intialized!"
 
+template_letter = File.read "form_letter.html"
 
 content= CSV.open "attendees.csv", headers: true, header_converters: :symbol
 
@@ -55,8 +56,12 @@ content.each do |row|
 	
 	name = row[:first_name]
 	zipcode = clean_zip(row[:zipcode])
+	#if this method returns a value print the name zipcode and legislators
 	if legislators = legislator_zip_prnt(name,zipcode)
-		puts "#{name} #{zipcode} #{legislators} "
+		letter_edited = template_letter.gsub('FIRST_NAME',name)
+		letter_edited.gsub!('LEGISLATORS',legislators)
+		puts letter_edited
+		#puts "#{name} #{zipcode} #{legislators} "
 	end
         #puts "#{legislators}"
 
