@@ -1,6 +1,6 @@
 require "csv"
 require 'google/apis/civicinfo_v2'
-
+require 'erb'
 
 
 def clean_zip(zipcode)
@@ -48,20 +48,26 @@ end
 
 puts "Events Manager Intialized!"
 
-template_letter = File.read "form_letter.html"
+template_let = File.read "form_letter.html"
 
 content= CSV.open "attendees.csv", headers: true, header_converters: :symbol
 
 content.each do |row|
-	
+
+	id= row[0]	
 	name = row[:first_name]
 	zipcode = clean_zip(row[:zipcode])
 	#if this method returns a value print the name zipcode and legislators
 	if legislators = legislator_zip_prnt(name,zipcode)
-		letter_edited = template_letter.gsub('FIRST_NAME',name)
+		letter_edited = template_let.gsub('FIRST_NAME',name)
 		letter_edited.gsub!('LEGISLATORS',legislators)
-		puts letter_edited
-		#puts "#{name} #{zipcode} #{legislators} "
+		#create output direcory if it doesnt exist and then html files to it
+		Dir.mkdir("output") unless Dir.exists? "output"
+		fn= "output/thanks_#{id}.html"
+		#if the file exists overwrite it
+		File.open(fn,'w') do |file|
+			file.puts letter_edited
+		end
 	end
         #puts "#{legislators}"
 
